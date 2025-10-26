@@ -25,12 +25,17 @@ exports.getUserById = async (req, res) => {
 // Create user
 exports.createUser = async (req, res) => {
   try {
+    // Tambahkan log ini untuk debugging
+    console.log('Is prisma defined?', prisma);
+
     const { name, email, password } = req.body;
     const user = await prisma.user.create({
       data: { name, email, password }
     });
     res.status(201).json(user);
   } catch (error) {
+    // Tambahkan log error yang lebih detail
+    console.error('Error in createUser:', error);
     res.status(500).json({ message: error.message });
   }
 };

@@ -1,0 +1,67 @@
+version: '3.8' # Gunakan versi Compose yang sesuai
+
+services:
+  # Service untuk Server (Backend)
+  server:
+    build:
+      context: ./server # Path ke direktori server
+      dockerfile: Dockerfile
+    container_name: perpustakaan-server
+    restart: unless-stopped
+    ports:
+      - "4000:4000" # Mapping port host:container
+    environment:
+      # Ganti dengan URL database PostgreSQL Anda di Docker atau eksternal
+      DATABASE_URL: ${DATABASE_URL} # Gunakan variabel environment dari file .env
+    depends_on:
+      db: # Pastikan database siap sebelum server dimulai
+        condition: service_healthy
+    networks:
+      - perpustakaan-net
+
+  # Service untuk Client (Frontend)
+  client:
+    build:
+      context: ./client # Path ke direktori client
+      dockerfile: Dockerfile
+    container_name: perpustakaan-client
+    restart: unless-stopped
+    ports:
+      - "8080:80" # Mapping port host 8080 ke port 80 Nginx di container
+    depends_on:
+      - server # Client mungkin perlu menunggu server siap 
+    networks:
+      - perpustakaan-net
+
+  # Service untuk Database (PostgreSQL)
+  db:
+    image: postgres:14-alpine # Gunakan image PostgreSQL
+    container_name: perpustakaan-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER} # Gunakan variabel dari .env
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - perpustakaan-data:/var/lib/postgresql/data # Volume untuk persistensi data
+      # (Opsional) Jika punya skrip inisialisasi SQL
+      # - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432" # Mapping port database (hati-hati membuka port db ke host di produksi)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - perpustakaan-net
+
+# Mendefinisikan network kustom
+networks:
+  perpustakaan-net:
+    driver: bridge
+
+# Mendefinisikan volume untuk persistensi data database
+volumes:
+  perpustakaan-data:
+    driver: local

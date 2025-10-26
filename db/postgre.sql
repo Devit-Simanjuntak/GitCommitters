@@ -1,6 +1,7 @@
 set search_path to public;
 show search_path;
 
+-- Insert Books first (no dependencies)
 INSERT INTO "Book"(title, author, year, status) VALUES 
     ('To Kill a Mockingbird', 'Harper Lee', 1960, 'available'),
     ('1984', 'George Orwell', 1949, 'unavailable'),
@@ -33,7 +34,13 @@ INSERT INTO "Book"(title, author, year, status) VALUES
     ('The Handmaid''s Tale', 'Margaret Atwood', 1985, 'unavailable'),
     ('Slaughterhouse-Five', 'Kurt Vonnegut', 1969, 'available');
 
-Insert into "Borrowing"("userId", "bookId") values (1, 3), (1, 4), (1, 5);
+INSERT INTO "User" (name, email, password, "updatedAt") VALUES 
+    ('Test User', 'test@example.com', 'password123', NOW()); 
+
+INSERT INTO "Borrowing"("userId", "bookId") VALUES 
+    (1, 3), 
+    (1, 4), 
+    (1, 5);
 
 select * from "Book";
 select * from "User";
