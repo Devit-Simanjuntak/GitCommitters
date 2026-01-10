@@ -16,7 +16,7 @@ const Home = ({ user, setUser }) => {
 
   const fetchBooks = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/books/getAlls');
+      const response = await axios.get('http://localhost:3000/books/getAlls');
       return response.data;
     } catch (error) {
       console.warn('Error fetching books:', error);
@@ -26,7 +26,7 @@ const Home = ({ user, setUser }) => {
 
   const fetchUserLoans = async (userId) => {
     try {
-      const response = await axios.get(`http://localhost:4000/borrowings/${userId}`);
+      const response = await axios.get(`http://localhost:3000/borrowings/${userId}`);
       return response.data;
     } catch (error) {
       console.warn('Error fetching user loans:', error);

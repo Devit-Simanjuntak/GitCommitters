@@ -1,5 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
+
+// CORS
+app.use(cors({
+  origin: true, // Mengizinkan semua origin
+  credentials: true // Mengizinkan cookie/session jika perlu
+}))
 
 // Middleware
 app.use(express.json());

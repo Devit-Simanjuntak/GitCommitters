@@ -16,7 +16,7 @@ const Login = ( { setUser } ) => {
     }
     
     try {
-      const response = await axios.post('http://localhost:4000/users/login', {
+      const response = await axios.post('http://localhost:3000/users/login', {
         name: username,
         password: password
       });

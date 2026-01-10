@@ -29,7 +29,7 @@ const EditProfile = () => {
             delete updatedData.password;
         }
         
-        const response = await fetch(`http://localhost:4000/users/${savedUser.id}`, {
+        const response = await fetch(`http://localhost:3000/users/${savedUser.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(updatedData),

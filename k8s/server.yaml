@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+      - name: server
+        image: devitsimanjuntak/perpustakaan-server # Pastikan pakai image terbaru Anda
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DATABASE_URL
+          # User: postgre, Pass: kant1an4l1fe, Host: postgres, DB: perpustakaan
+          value: "postgresql://postgre:kant1an4l1fe@postgres:5432/perpustakaan?schema=public"
+        - name: PORT
+          value: "3000"
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server
+spec:
+  type: LoadBalancer
+  selector:
+    app: server
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

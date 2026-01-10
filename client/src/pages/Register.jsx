@@ -40,7 +40,7 @@ const Register = () => {
 
     // Register Algorithm
     try {
-        const response = await axios.post('http://localhost:4000/users/register', {
+        const response = await axios.post('http://localhost:3000/users/register', {
             name,
             email,
             password

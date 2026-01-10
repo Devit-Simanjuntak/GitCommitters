@@ -24,7 +24,7 @@ FROM nginx:stable-alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # (Opsional) Salin konfigurasi Nginx kustom jika diperlukan
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port default Nginx
 EXPOSE 80

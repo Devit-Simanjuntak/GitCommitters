@@ -11,7 +11,7 @@ const borrowBook = async (bookId, fetchData) => {
       return;
     }
 
-    const response = await axios.post("http://localhost:4000/borrowings/borrow", {
+    const response = await axios.post("http://localhost:3000/borrowings/borrow", {
       userId,
       bookId,
     });
@@ -36,7 +36,7 @@ const giveBackBook = async (bookId, fetchData) => {
       return;
     }
 
-    const response = await axios.put(`http://localhost:4000/borrowings/${bookId}/return`);
+    const response = await axios.put(`http://localhost:3000/borrowings/${bookId}/return`);
 
     if (response.status === 200) {
       alert("Buku berhasil dikembalikan!");
