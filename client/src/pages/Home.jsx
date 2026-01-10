@@ -11,7 +11,7 @@ const Home = ({ user, setUser }) => {
   const [loanBook, setLoanBook] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loanPage, setLoanPage] = useState(true);
-  const loanPointer = loanPage ? 'Daftar Pinjaman' : 'Daftar Buku';
+  const loanPointer = loanPage ? 'Daftar Pinjaman (v2)' : 'Daftar Buku (updated)';
   const [catalogLoan, setCatalogLoan] = useState({});
 
   const fetchBooks = async () => {
