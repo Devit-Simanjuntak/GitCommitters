@@ -66,4 +66,6 @@ prisma generate (sesuai dengan namanya)
 sekarang, pastikan di directory 'server/node_modules/@prisma/client' sudah terisi program api-api prisma.
 
 jika sudah maka sudah selesai pengaturan koneksi database postgresqlnya.
-	
+
+
+Adding some messages!
